@@ -69,7 +69,7 @@ const LoginForm: React.FC<ILoginForm> = ({ onLoginSuccess }) => {
 
   return (
     <form className="form_container" onSubmit={handleSubmit}>
-    <div className="logo_container"></div>
+    <div className="logo_container">  </div>
     <div className="title_container">
       <p className="title">Login to your Account</p>
       <span className="subtitle">This is a Log in Task</span>

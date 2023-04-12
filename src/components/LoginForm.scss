@@ -8,8 +8,8 @@ $form_container_border_radius: 11px;
 $form_container_font_family: "Inter", sans-serif;
 $form_container_gap: 15px;
 
-$logo_container_width: 80px;
-$logo_container_height: 80px;
+$logo_container_width: 225px;
+$logo_container_height: 60px;
 $logo_container_background: linear-gradient(180deg, rgba(248, 248, 248, 0) 50%, #F8F8F888 100%);
 $logo_container_border: 1px solid #F7F7F8;
 $logo_container_filter: drop-shadow(0px 0.5px 0.5px #EFEFEF) drop-shadow(0px 1px 0.5px rgba(239, 239, 239, 0.5));
@@ -29,6 +29,7 @@ $input_field_transition: all 0.3s cubic-bezier(0.15, 0.83, 0.66, 1);
 
 .form_container {
   margin: $form_container_margin;
+  margin-top: 35px;
   width: fit-content;
   height: fit-content;
   display: flex;
@@ -48,6 +49,7 @@ $input_field_transition: all 0.3s cubic-bezier(0.15, 0.83, 0.66, 1);
   width: $logo_container_width;
   height: $logo_container_height;
   background: $logo_container_background;
+  background-image: url('../logo.png'); /* path to logo image */
   border: $logo_container_border;
   filter: $logo_container_filter;
   border-radius: $logo_container_border_radius;
