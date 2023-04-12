@@ -72,7 +72,7 @@ const LoginForm: React.FC<ILoginForm> = ({ onLoginSuccess }) => {
     <div className="logo_container"></div>
     <div className="title_container">
       <p className="title">Login to your Account</p>
-      <span className="subtitle">Get started with our app, just create an account and enjoy the experience.</span>
+      <span className="subtitle">This is a Log in Task</span>
     </div>
     <br/>
     <div className="input_container">
@@ -102,7 +102,9 @@ const LoginForm: React.FC<ILoginForm> = ({ onLoginSuccess }) => {
          value={password}
          onChange={handlePasswordChange}
          className="input_field"
-       
+         pattern="^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[^\w\s]).{8,}$"
+         title="Invalid password. Please make sure your password is at least 8 characters long and contains at least 1 uppercase letter, 1 lowercase letter, and 1 special character."
+         required
       />
     </div>
     {errorMessage && <div className="error_message">{errorMessage}</div>}
