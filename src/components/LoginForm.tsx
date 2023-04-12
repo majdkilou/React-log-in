@@ -3,7 +3,6 @@ import { Form, FormGroup, Label, Input, Button } from "reactstrap";
 import { useNavigate }  from "react-router-dom";
 import "./LoginForm.scss";
 
-
 interface ILoginForm {
   onLoginSuccess: () => void;
 }
@@ -25,7 +24,24 @@ const LoginForm: React.FC<ILoginForm> = ({ onLoginSuccess }) => {
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    fetch("/api/login", {
+    if (!validatePassword(password)) {
+      setErrorMessage("Invalid password. Please make sure your password is at least 8 characters long and contains at least 1 uppercase letter, 1 lowercase letter, and 1 special character.");
+      return;
+    }
+    if (!/[a-z]/.test(password)) {
+      setErrorMessage("Password must contain at least one lowercase letter");
+      return;
+    }
+    if (!/[A-Z]/.test(password)) {
+      setErrorMessage("Password must contain at least one uppercase letter");
+      return;
+    }
+    if (!/[^a-zA-Z0-9]/.test(password)) {
+      setErrorMessage("Password must contain at least one special character");
+      return;
+    }
+
+    fetch("http://localhost:3001/api/login", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ username, password }),
@@ -46,33 +62,12 @@ const LoginForm: React.FC<ILoginForm> = ({ onLoginSuccess }) => {
       });
   };
 
+  const validatePassword = (password: string) => {
+    const regex = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[^\w\s]).{8,}$/;
+    return regex.test(password);
+  };
+
   return (
-/*     <div className="container">
-      <Form onSubmit={handleSubmit}>
-        <FormGroup>
-          <Label for="username">Username</Label>
-          <Input
-            type="text"
-            name="username"
-            id="username"
-            value={username}
-            onChange={handleUsernameChange}
-          />
-        </FormGroup>
-        <FormGroup>
-          <Label for="password">Password</Label>
-          <Input
-            type="password"
-            name="password"
-            id="password"
-            value={password}
-            onChange={handlePasswordChange}
-          />
-        </FormGroup>
-        {errorMessage && <div className="text-danger">{errorMessage}</div>}
-        <Button color="primary">Submit</Button>
-      </Form>
-    </div> */
     <form className="form_container" onSubmit={handleSubmit}>
     <div className="logo_container"></div>
     <div className="title_container">
@@ -100,14 +95,18 @@ const LoginForm: React.FC<ILoginForm> = ({ onLoginSuccess }) => {
         <path stroke-linejoin="round" stroke-linecap="round" stroke-width="1.5" stroke="#141B34" d="M6 9V6.5C6 4.01472 8.01472 2 10.5 2C12.9853 2 15 4.01472 15 6.5V9"></path>
         <path fill="#141B34" d="M21.2046 15.1045L20.6242 15.6956V15.6956L21.2046 15.1045ZM21.4196 16.4767C21.7461 16.7972 22.2706 16.7924 22.5911 16.466C22.9116 16.1395 22.9068 15.615 22.5804 15.2945L21.4196 16.4767ZM18.0228 15.1045L17.4424 14.5134V14.5134L18.0228 15.1045ZM18.2379 18.0387C18.5643 18.3593 19.0888 18.3545 19.4094 18.028C19.7299 17.7016 19.7251 17.1771 19.3987 16.8565L18.2379 18.0387ZM14.2603 20.7619C13.7039 21.3082 12.7957 21.3082 12.2394 20.7619L11.0786 21.9441C12.2794 23.1232 14.2202 23.1232 15.4211 21.9441L14.2603 20.7619ZM12.2394 20.7619C11.6914 20.2239 11.6914 19.358 12.2394 18.82L11.0786 17.6378C9.86927 18.8252 9.86927 20.7567 11.0786 21.9441L12.2394 20.7619ZM12.2394 18.82C12.7957 18.2737 13.7039 18.2737 14.2603 18.82L15.4211 17.6378C14.2202 16.4587 12.2794 16.4587 11.0786 17.6378L12.2394 18.82ZM14.2603 18.82C14.8082 19.358 14.8082 20.2239 14.2603 20.7619L15.4211 21.9441C16.6304 20.7567 16.6304 18.8252 15.4211 17.6378L14.2603 18.82ZM20.6242 15.6956L21.4196 16.4767L22.5804 15.2945L21.785 14.5134L20.6242 15.6956ZM15.4211 18.82L17.8078 16.4767L16.647 15.2944L14.2603 17.6377L15.4211 18.82ZM17.8078 16.4767L18.6032 15.6956L17.4424 14.5134L16.647 15.2945L17.8078 16.4767ZM16.647 16.4767L18.2379 18.0387L19.3987 16.8565L17.8078 15.2945L16.647 16.4767ZM21.785 14.5134C21.4266 14.1616 21.0998 13.8383 20.7993 13.6131C20.4791 13.3732 20.096 13.1716 19.6137 13.1716V14.8284C19.6145 14.8284 19.619 14.8273 19.6395 14.8357C19.6663 14.8466 19.7183 14.8735 19.806 14.9391C19.9969 15.0822 20.2326 15.3112 20.6242 15.6956L21.785 14.5134ZM18.6032 15.6956C18.9948 15.3112 19.2305 15.0822 19.4215 14.9391C19.5091 14.8735 19.5611 14.8466 19.5879 14.8357C19.6084 14.8273 19.6129 14.8284 19.6137 14.8284V13.1716C19.1314 13.1716 18.7483 13.3732 18.4281 13.6131C18.1276 13.8383 17.8008 14.1616 17.4424 14.5134L18.6032 15.6956Z"></path>
       </svg>
-      <input  type="password"
-            name="password"
-            id="password"
-            value={password}
-            onChange={handlePasswordChange} 
-            className="input_field" />
+      <input 
+         type="password"
+         name="password"
+         id="password"
+         value={password}
+         onChange={handlePasswordChange}
+         className="input_field"
+       
+      />
     </div>
-    <button title="Sign In" type="submit" className="sign-in_btn">
+    {errorMessage && <div className="error_message">{errorMessage}</div>}
+    <button title="Sign In" type="submit" className="sign-in_btn" >
       <span>Sign In</span>
     </button>
     

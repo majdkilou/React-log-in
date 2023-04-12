@@ -17,7 +17,7 @@ const Table: React.FC = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get('/api/data', {
+        const response = await axios.get('http://localhost:3001/api/table', {
           headers: {
             Authorization: `Bearer ${localStorage.getItem('token')}`,
           },

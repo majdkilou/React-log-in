@@ -13,13 +13,13 @@ const users = [
   {
     id: 1,
     username: 'majd',
-    password: '$2b$10$6WEbwYpq0ija.dHTNAYyZOPFwOD3JVd88odTYeCp1foTyBnExfOzC', // password is "test"
+    password: '$2b$10$Hm4VHwhpup5t1aNP0jMR2uln1RxYf.mBnKeQaQqeSP1QYTaZ1z1JK', // password is "Test@123"
     role: 'viewer',
   },
   {
     id: 2,
     username: 'websight',
-    password: '$2b$10$6WEbwYpq0ija.dHTNAYyZOPFwOD3JVd88odTYeCp1foTyBnExfOzC', // password is "test"
+    password: '$2b$10$Hm4VHwhpup5t1aNP0jMR2uln1RxYf.mBnKeQaQqeSP1QYTaZ1z1JK', // password is "Test@123"
     role: 'editor',
   },
 ]; 
@@ -27,17 +27,7 @@ const users = [
 
 app.post('/api/login', (req, res) => {
   const user = users.find((user) => user.username === req.body.username);
-const pass = 'test'
-const saltRounds = 10;
 
-bcrypt.hash(pass, saltRounds, (err, hash) => {
-  if (err) {
-    console.error(err);
-  } else {
-    console.log(hash);
-  }
-});
-console.log(pass)
   if (user && bcrypt.compareSync(req.body.password, user.password)) {
     const token = jwt.sign(
       { id: user.id, username: user.username, role: user.role },
@@ -61,6 +51,9 @@ const validateToken = (req, res, next) => {
 
   try {
     const decodedToken = jwt.verify(token, 'secret');
+    if (decodedToken.exp < Date.now() / 1000) {
+      return res.status(401).json({ message: 'Token has expired' });
+    }
     req.user = decodedToken;
     next();
   } catch (error) {
@@ -68,7 +61,8 @@ const validateToken = (req, res, next) => {
   }
 };
 
-app.get('/api/data', validateToken, (req, res) => {
+
+app.get('/api/table', validateToken, (req, res) => {
   const data = [
     { id: 1, name: 'John Doe', email: 'john@example.com' },
     { id: 2, name: 'Jane Doe', email: 'jane@example.com' },
@@ -115,5 +109,5 @@ app.use((err, req, res, next) => {
 });
 
 // Start the server
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 3001;
 app.listen(port, () => {});
