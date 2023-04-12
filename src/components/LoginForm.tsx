@@ -39,7 +39,7 @@ const LoginForm: React.FC<ILoginForm> = ({ onLoginSuccess }) => {
       .then((data) => {
         localStorage.setItem("token", data.token);
         onLoginSuccess();
-        history("/");
+        history("/table");
       })
       .catch((error) => {
         setErrorMessage(error.message);
