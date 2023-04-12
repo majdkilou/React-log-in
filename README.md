@@ -1,9 +1,9 @@
 This project is a web application that requires both a client-side and server-side component. To run and test the application, please follow the steps outlined below.
 
-Prerequisites
+## Prerequisites
 To run this application, you will need to have Node.js and npm installed on your machine.
 
-Installation
+## Installation
 1- Clone this repository to your local machine using the following command:
 
 git clone https://github.com/your-username/your-project.git
@@ -12,7 +12,7 @@ git clone https://github.com/your-username/your-project.git
 
 npm install
 
-Usage
+## Usage
 1- To start the client-side component, navigate to the project directory and run the following command:
 
 npm start
@@ -25,10 +25,10 @@ node server.js
 
 This will start the server-side component of the application, which is necessary for the client-side component to function properly.
 
-Testing
+## Testing
 To test the application, navigate to http://localhost:3000 in your web browser. If the application is running correctly, you should be able to interact with it as intended.
 
-User test credentioal:
+## User test credentioal:
 
 1- viewr user :
 user name : majd
