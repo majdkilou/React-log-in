@@ -10,7 +10,7 @@ git clone https://github.com/your-username/your-project.git
 
 2- Navigate to the project directory and install the required packages by running the following command:
 
-* npm install 
+# npm install 
 
 ## Usage
 1- To start the client-side component, navigate to the project directory and run the following command:
