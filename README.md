@@ -1,5 +1,7 @@
 This project is a web application that requires both a client-side and server-side component. To run and test the application, please follow the steps outlined below.
 
+#### node version used v19.1.0
+
 #  Prerequisites
 To run this application, you will need to have Node.js and npm installed on your machine.
 
