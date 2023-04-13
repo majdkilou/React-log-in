@@ -8,7 +8,7 @@ To run this application, you will need to have Node.js and npm installed on your
 # Installation
 1- Clone this repository to your local machine using the following command:
 
-git clone https://github.com/your-username/your-project.git
+git clone https://github.com/majdkilou/log-in-task.git
 
 2- Navigate to the project directory and install the required packages by running the following command:
 
